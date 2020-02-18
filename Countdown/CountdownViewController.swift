@@ -72,7 +72,8 @@ class CountdownViewController: UIViewController {
     }
     
     private func updateViews() {
-        
+        //Reset the label with how much time is remaining
+        timeLabel.text = String(countdown.timeRemaining)
     }
     
     private func string(from duration: TimeInterval) -> String {
@@ -85,11 +86,12 @@ class CountdownViewController: UIViewController {
 
 extension CountdownViewController: CountdownDelegate {
     func countdownDidUpdate(timeRemaining: TimeInterval) {
-        
+        updateViews()
     }
     
     func countdownDidFinish() {
         showAlert()
+        updateViews()
     }
 }
 
