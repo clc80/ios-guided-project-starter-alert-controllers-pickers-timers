@@ -19,6 +19,8 @@ class CountdownViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let countdown = Countdown()
+    
     lazy private var countdownPickerData: [[String]] = {
         // Create string arrays using numbers wrapped in string values: ["0", "1", ... "60"]
         let minutes: [String] = Array(0...60).map { String($0) }
@@ -33,12 +35,15 @@ class CountdownViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        countdown.delegate = self
+        countdown.duration = 5
     }
     
     // MARK: - Actions
     
     @IBAction func startButtonTapped(_ sender: UIButton) {
-        let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: timerFinished(timer:))
+        countdown.start()
     }
     
     // Will run when timer is done
@@ -84,7 +89,7 @@ extension CountdownViewController: CountdownDelegate {
     }
     
     func countdownDidFinish() {
-        
+        showAlert()
     }
 }
 
